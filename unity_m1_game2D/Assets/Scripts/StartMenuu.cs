@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class StartMenuu : MonoBehaviour
+
+public class StartMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+  public void GoToScene(string sceneName)
     {
-        
+        SceneManager.LoadScene(sceneName);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Quitapp()
     {
-        
+        Application.Quit();
+        Debug.Log("Application has quit");
     }
+
 }
+
+
+
