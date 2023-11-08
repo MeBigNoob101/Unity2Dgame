@@ -23,9 +23,11 @@ public class FightManager : MonoBehaviour
     [Space(5)]
     public string[] Karakter_Animatie_Attack_TriggerWoord;
     public string[] Karakter_Animatie_Damage_TriggerWoord;
+    public float karakteraanvalreactietijd = 0.5f;
     [Space(10)]
     public string[] Boss_Animatie_Attack_Triggerwoord;
     public string[] Boss_Animatie_Damage_TriggerWoord;
+    public float bossaanvalreactietijd = 2f;
 
     private IEnumerator routine; 
 
@@ -195,16 +197,10 @@ public class FightManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         playeranimator.SetTrigger(Karakter_Animatie_Attack_TriggerWoord[moveselect]);
-        while (playeranimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(karakteraanvalreactietijd);
 
         bossanimator.SetTrigger(Boss_Animatie_Damage_TriggerWoord[CheckBossDefence()]);
-        while (bossanimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(bossaanvalreactietijd);
         yield return new WaitForSeconds(1f);
         attackorganizer();
     }
@@ -214,15 +210,11 @@ public class FightManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         bossanimator.SetTrigger(Boss_Animatie_Attack_Triggerwoord[CheckBossAttacks()]);
-        while (bossanimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(bossaanvalreactietijd);
+
+
         playeranimator.SetTrigger(Karakter_Animatie_Damage_TriggerWoord[CheckCharacterDefence()]);
-        while (playeranimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(karakteraanvalreactietijd);
         yield return new WaitForSeconds(1f);
         attackorganizer();
     }
